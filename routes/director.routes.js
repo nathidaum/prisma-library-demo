@@ -6,7 +6,7 @@ const router = express.Router();
 // POST /directors
 router.post("/", async (req, res) => {
   try {
-    const { firstName, lastName, bi, movies } = req.body;
+    const { firstName, lastName, bio, movies } = req.body;
 
     const newDirector = await prisma.director.create({
       data: {
@@ -48,8 +48,8 @@ router.get("/:directorId", async (req, res) => {
     const { directorId } = req.params;
 
     const selectedDirector = await prisma.director.findUnique({
-      where: { id: parseInt(directorId) },
-      include: { movies: true }, // Ensure the property name matches your schema
+      where: { id: directorId },
+      include: { movies: true },
     });
 
     if (!selectedDirector) {
@@ -78,7 +78,7 @@ router.put("/:directorId", async (req, res) => {
         bio,
         movies
       },
-      where: { id: parseInt(directorId) }, // Assuming id is an integer
+      where: { id: directorId },
     });
 
     res.status(200).json(directorToUpdate);

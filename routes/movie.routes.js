@@ -6,7 +6,7 @@ const router = express.Router();
 // POST /movies
 router.post("/", async (req, res) => {
   try {
-    const { title, genres, year, rating, director } = req.body;
+    const { title, genres, year, rating, directorId } = req.body;
 
     const newMovie = await prisma.movie.create({
       data: {
@@ -14,7 +14,7 @@ router.post("/", async (req, res) => {
         genres,
         year,
         rating,
-        director
+        directorId
       },
     });
 
@@ -70,7 +70,7 @@ router.get("/:movieId", async (req, res) => {
 router.put("/:movieId", async (req, res) => {
   try {
     const { movieId } = req.params;
-    const { title, genres, year, rating, director } = req.body;
+    const { title, genres, year, rating, directorId } = req.body;
 
     const movieToUpdate = await prisma.movie.update({
       data: {
@@ -78,9 +78,9 @@ router.put("/:movieId", async (req, res) => {
         genres,
         year,
         rating,
-        director
+        directorId
       },
-      where: { id: parseInt(movieId) }, // Assuming id is an integer
+      where: { id: movieId },
     });
 
     res.status(200).json(movieToUpdate);

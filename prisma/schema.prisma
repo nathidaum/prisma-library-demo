@@ -16,7 +16,7 @@ datasource db {
 model Movie {
   id        String   @id @default(cuid())
   title     String
-  genres     String[]
+  genres    String[]
   year      Int
   rating    Int
   createdAt DateTime @default(now())
