@@ -96,7 +96,7 @@ router.delete("/:directorId", async (req, res) => {
     const { directorId } = req.params;
 
     const directorToDelete = await prisma.director.delete({
-      where: { id: parseInt(directorId) },
+      where: { id: directorId },
     });
 
     res.status(200).json(directorToDelete);

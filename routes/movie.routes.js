@@ -49,7 +49,7 @@ router.get("/:movieId", async (req, res) => {
     const { movieId } = req.params;
 
     const selectedMovie = await prisma.movie.findUnique({
-      where: { id: parseInt(movieId) },
+      where: { id: movieId },
       include: { director: true },
     });
 
@@ -98,7 +98,7 @@ router.delete("/:movieId", async (req, res) => {
     const { movieId } = req.params;
 
     const movieToDelete = await prisma.movie.delete({
-      where: { id: parseInt(movieId) },
+      where: { id: movieId },
     });
 
     res.status(200).json(movieToDelete);
