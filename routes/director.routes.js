@@ -6,13 +6,14 @@ const router = express.Router();
 // POST /directors
 router.post("/", async (req, res) => {
   try {
-    const { firstName, lastName, bio } = req.body;
+    const { firstName, lastName, bi, movies } = req.body;
 
     const newDirector = await prisma.director.create({
       data: {
         firstName,
         lastName,
         bio,
+        movies
       },
     });
 
@@ -68,13 +69,14 @@ router.get("/:directorId", async (req, res) => {
 router.put("/:directorId", async (req, res) => {
   try {
     const { directorId } = req.params;
-    const { firstName, lastName, bio } = req.body;
+    const { firstName, lastName, bio, movies } = req.body;
 
     const directorToUpdate = await prisma.director.update({
       data: {
         firstName,
         lastName,
         bio,
+        movies
       },
       where: { id: parseInt(directorId) }, // Assuming id is an integer
     });
