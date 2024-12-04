@@ -43,10 +43,10 @@ router.get("/", async (req, res) => {
   }
 });
 
-// GET /movies/:movieId
 router.get("/:movieId", async (req, res) => {
   try {
     const { movieId } = req.params;
+    console.log("Received movieId:", movieId); // Debugging log
 
     const selectedMovie = await prisma.movie.findUnique({
       where: { id: movieId },
@@ -54,15 +54,14 @@ router.get("/:movieId", async (req, res) => {
     });
 
     if (!selectedMovie) {
+      console.log("Movie not found for id:", movieId);
       return res.status(404).json({ message: "Movie not found" });
     }
 
     res.status(200).json(selectedMovie);
   } catch (err) {
-    console.error("Error retrieving movie", err);
-    res.status(500).json({
-      message: "Error retrieving movie",
-    });
+    console.error("Error retrieving movie:", err);
+    res.status(500).json({ message: "Error retrieving movie" });
   }
 });
 
